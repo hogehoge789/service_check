@@ -1,13 +1,31 @@
 #!/bin/bash
 
-service=$1
+if [ $# = 0  ]; then
 
-count=`ps -ef | grep $service | grep -v grep | wc -l`
+  echo "Not File"
+  exit 0
 
-if [ $count = 0 ]; then
-  echo "$service is dead."
-  sudo systemctl start $service
+elif [ -e $1 ]; then
+
+  echo $1
+  exit 0
+
 else
-  echo "$service is alive."
-fi
 
+  for i in $(seq 1 $#)
+  do
+
+    service=${i}
+
+    count=`ps -ef | grep $service | grep -v grep | wc -l`
+
+    if [ $count = 0 ]; then
+      echo "$service is dead."
+      sudo systemctl start $service
+    else
+      echo "$service is alive."
+    fi
+ 
+  done
+
+fi
