@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service=httpd
+service=$1
 
 count=`ps -ef | grep $service | grep -v grep | wc -l`
 
