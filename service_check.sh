@@ -1,8 +1,29 @@
 #!/bin/bash
 
+function Func01 ()
+{ 
+for i in $(seq 1 $#)
+do
+
+  echo $1
+  echo '$i'
+  service=${i}
+
+  count=`ps -ef | grep $service | grep -v grep | wc -l`
+
+  if [ $count = 0 ]; then
+    echo "$service is dead."
+    sudo systemctl start $service
+  else
+    echo "$service is alive."
+  fi
+
+done
+}
+
 if [ $# = 0  ]; then
 
-  echo "Not File"
+  echo "Please specify file or service argument"
   exit 0
 
 elif [ -e $1 ]; then
@@ -12,20 +33,6 @@ elif [ -e $1 ]; then
 
 else
 
-  for i in $(seq 1 $#)
-  do
-
-    service=${i}
-
-    count=`ps -ef | grep $service | grep -v grep | wc -l`
-
-    if [ $count = 0 ]; then
-      echo "$service is dead."
-      sudo systemctl start $service
-    else
-      echo "$service is alive."
-    fi
- 
-  done
+  Func01
 
 fi
