@@ -2,23 +2,23 @@
 
 function Func01 ()
 { 
-for i in $(seq 1 $#)
-do
+  for i in $(seq 1 $#)
+  do
 
-  echo $1
-  echo '$i'
-  service=${i}
+    echo $1
+    echo '$i'
+    service=${i}
 
-  count=`ps -ef | grep $service | grep -v grep | wc -l`
+    count=`ps -ef | grep $service | grep -v grep | wc -l`
 
-  if [ $count = 0 ]; then
-    echo "$service is dead."
-    sudo systemctl start $service
-  else
-    echo "$service is alive."
-  fi
+    if [ $count = 0 ]; then
+      echo "$service is dead."
+      sudo systemctl start $service
+    else
+      echo "$service is alive."
+    fi
 
-done
+  done
 }
 
 if [ $# = 0  ]; then
