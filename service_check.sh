@@ -7,9 +7,9 @@ function Func01 ()
 
     echo $1
     echo '$i'
-    service=${i}
+    local service=${i}
 
-    count=`ps -ef | grep $service | grep -v grep | wc -l`
+    local count=`ps -ef | grep $service | grep -v grep | wc -l`
 
     if [ $count = 0 ]; then
       echo "$service is dead."
